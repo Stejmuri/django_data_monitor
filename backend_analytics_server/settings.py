@@ -17,7 +17,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-API_URL = 'https://jsonplaceholder.typicode.com/posts'
+API_URL = 'https://stejmuri.pythonanywhere.com/landing/api/index/?format=json'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
