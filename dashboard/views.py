@@ -30,7 +30,7 @@ def index(request):
     ultima_fecha = max(val["timestamp"] for val in posts.values())
 
     # Gráfico: conteo por producto
-    conteo_productos = Counter([val["ProductoID"] for val in posts.values()])
+    conteo_productos = Counter(productos) # Ej: Counter({'Producto 1': 5, 'Producto 2': 3})
     chart_labels = list(conteo_productos.keys())  # Ej: ["Producto 1", "Producto 2"]
     chart_values = list(conteo_productos.values())  # Ej: [5, 3]
 

@@ -159,30 +159,50 @@
           </h4>
           <canvas id="line"></canvas>
           <script>
-            document.addEventListener("DOMContentLoaded", function () {
-              const ctx = document.getElementById("line").getContext("2d");
+            const chart_labels = JSON.parse('{{ chart_labels|safe|escapejs }}');
+            const chart_values = JSON.parse('{{ chart_values|safe|escapejs }}');
 
-              const chartLabels = JSON.parse('{{ chart_labels|safe|escapejs }}');
-              const chartValues = JSON.parse('{{ chart_values|safe|escapejs }}');
+            const ctx = document.getElementById('line');
 
-              new Chart(ctx, {
-                type: 'bar',
-                data: {
-                  labels: chartLabels,
-                  datasets: [{
-                    label: 'Cantidad por producto',
-                    backgroundColor: '#4c51bf',
-                    borderColor: '#4c51bf',
-                    data: chartValues,
+            new Chart(ctx, {
+              type: 'bar', // Puedes cambiarlo a 'line' si prefieres
+              data: {
+                labels: chart_labels,
+                datasets: [{
+                  label: 'Cantidad por Producto',
+                  backgroundColor: '#7e3af2',
+                  borderColor: '#7e3af2',
+                  data: chart_values,
+                  fill: false,
+                }]
+              },
+              options: {
+                responsive: true,
+                legend: { display: false },
+                scales: {
+                  xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Producto'
+                    }
+                  }],
+                  yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                      display: true,
+                      labelString: 'Cantidad'
+                    },
+                    ticks: {
+                      beginAtZero: true,
+                      stepSize: 1
+                    }
                   }]
-                },
-                options: {
-                  responsive: true,
-                  maintainAspectRatio: false,
                 }
-              });
+              }
             });
           </script>
+
         </div>
       </div>
       <!-- END - Gráficos -->
