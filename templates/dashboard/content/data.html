@@ -66,12 +66,12 @@
         </div>
         <div>
           <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-            Producto más frecuente
+            Fecha de última compra
           </p>
           <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
 
             <!-- START - valor del indicador 3 -->
-            {{producto_mas_frecuente}}
+            {{ultima_fecha}}
             <!-- END - valor del indicador 3 -->
 
           </p>
@@ -89,12 +89,12 @@
         </div>
         <div>
           <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-            Fecha de última compra
+            Producto Estrella
           </p>
           <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
 
             <!-- START - valor del indicador 4 -->
-            {{ultima_fecha}}
+            {{producto_mas_frecuente}}
             <!-- END - valor del indicador 4 -->
 
           </p>
@@ -113,8 +113,8 @@
             <thead>
               <tr
                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                <th class="px-4 py-3">Productos</th>
-                <th class="px-4 py-3">Fecha y Hora de Compra</th>
+                <th class="px-4 py-3 text-center">Productos</th>
+                <th class="px-4 py-3 text-center">Fecha y Hora de Compra</th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -122,12 +122,12 @@
               <!-- START - respuestas -->
               {% for fila in tabla_datos %}
               <tr class="text-gray-700 dark:text-gray-400">
-                <td class="px-4 py-3 text-sm">
+                <td class="px-4 py-3 text-sm text-center">
                   <!-- START - fila.valor1 -->
                   {{ fila.producto }}
                   <!-- END - fila.valor1 -->
                 </td>
-                <td class="px-4 py-3 text-sm">
+                <td class="px-4 py-3 text-sm text-center">
                   <!-- START - fila.valor2 -->
                   {{ fila.fecha }}
                   <!-- END - fila.valor2 -->
