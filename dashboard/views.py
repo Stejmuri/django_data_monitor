@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
-import requests
+import requests # type: ignore
 from collections import Counter
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
