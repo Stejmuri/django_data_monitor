@@ -56,5 +56,5 @@ const lineConfig = {
 }
 
 // change this to the id of your chart element in HMTL
-const lineCtx = document.getElementById('line')
-window.myLine = new Chart(lineCtx, lineConfig)
+const lineCtx = document.getElementById('line');
+window.myLine = new Chart(lineCtx, lineConfig);

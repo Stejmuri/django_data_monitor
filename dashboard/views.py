@@ -28,7 +28,11 @@ def index(request):
     productos = [val["ProductoID"] for val in posts.values()]
     productos_unicos = len(set(productos))
     producto_mas_frecuente = max(set(productos), key=productos.count)
-    ultima_fecha = max(val["timestamp"] for val in posts.values())
+    ultima_fecha = max(
+        datetime.fromisoformat(val["timestamp"]).strftime("%Y-%m-%d")
+        for val in posts.values()
+    )
+
 
     # Gráfico: conteo por producto
     conteo_productos = Counter(productos) # Ej: Counter({'Producto 1': 5, 'Producto 2': 3})
