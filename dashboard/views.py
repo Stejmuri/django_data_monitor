@@ -29,11 +29,11 @@ def index(request):
     producto_mas_frecuente = max(set(productos), key=productos.count)
     ultima_fecha = max(val["timestamp"] for val in posts.values())
 
-    # Gráfico: conteo por fecha (solo día)
-    fechas = [val["timestamp"].split("T")[0] for val in posts.values()]
-    conteo_fechas = Counter(fechas)
-    chart_labels = list(conteo_fechas.keys())
-    chart_values = list(conteo_fechas.values())
+    # Gráfico: conteo por producto
+    conteo_productos = Counter([val["ProductoID"] for val in posts.values()])
+    chart_labels = list(conteo_productos.keys())  # Ej: ["Producto 1", "Producto 2"]
+    chart_values = list(conteo_productos.values())  # Ej: [5, 3]
+
 
     data = {
         'title': "Landing Page' Dashboard",
@@ -42,6 +42,8 @@ def index(request):
         'producto_mas_frecuente': producto_mas_frecuente,
         'ultima_fecha': ultima_fecha,
         'tabla_datos': tabla_datos,
+        'chart_labels': chart_labels,
+        'chart_values': chart_values,
     }
 
     return render(request, 'dashboard/index.html', data)
