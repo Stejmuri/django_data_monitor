@@ -5,6 +5,7 @@ import requests # type: ignore
 from collections import Counter
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+import json
 
 @login_required
 # dashboard/views.py
@@ -42,8 +43,8 @@ def index(request):
         'producto_mas_frecuente': producto_mas_frecuente,
         'ultima_fecha': ultima_fecha,
         'tabla_datos': tabla_datos,
-        'chart_labels': chart_labels,
-        'chart_values': chart_values,
+        'chart_labels': json.dumps(chart_labels),
+        'chart_values': json.dumps(chart_values),
     }
 
     return render(request, 'dashboard/index.html', data)

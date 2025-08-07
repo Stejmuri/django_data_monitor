@@ -7,7 +7,7 @@ const lineConfig = {
     labels: chart_labels,
     datasets: [
       {
-        label: 'Serie 1',
+        label: 'Cantidad: ',
         /**
          * These colors come from Tailwind CSS palette
          * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
