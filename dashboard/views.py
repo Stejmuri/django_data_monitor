@@ -7,53 +7,42 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
 @login_required
+# dashboard/views.py
 def index(request):
     response = requests.get(settings.API_URL)
     posts = response.json()
 
-    # Número total de respuestas
     total_responses = len(posts)
 
-    # Extraer productos y fechas
-    productos = []
-    fechas = []
-    tabla = []
-
-    for item in posts.values():
-        producto = item.get("ProductoID", "Desconocido")
-        timestamp = item.get("timestamp", "")
-        
-        productos.append(producto)
-        fechas.append(timestamp)
-        
-        tabla.append({
-            "producto": producto,
-            "fecha": datetime.fromisoformat(timestamp).strftime('%Y-%m-%d %H:%M:%S')
+    # Extraer productoID y timestamp
+    tabla_datos = []
+    for key, val in posts.items():
+        tabla_datos.append({
+            "id": key,
+            "producto": val["ProductoID"],
+            "fecha": val["timestamp"]
         })
 
-    # Indicador 2: número de productos distintos
+    # Indicadores
+    productos = [val["ProductoID"] for val in posts.values()]
     productos_unicos = len(set(productos))
+    producto_mas_frecuente = max(set(productos), key=productos.count)
+    ultima_fecha = max(val["timestamp"] for val in posts.values())
 
-    # Indicador 3: producto más frecuente
-    producto_mas_frecuente = Counter(productos).most_common(1)[0][0]
-
-    # Indicador 4: último timestamp registrado
-    fecha_mas_reciente = max(datetime.fromisoformat(f) for f in fechas).strftime('%Y-%m-%d %H:%M:%S')
-
-    # Datos para el gráfico: conteo por día
-    conteo_por_dia = Counter(f[:10] for f in fechas)  # YYYY-MM-DD
-    fechas_ordenadas = sorted(conteo_por_dia.keys())
-    cantidades = [conteo_por_dia[fecha] for fecha in fechas_ordenadas]
+    # Gráfico: conteo por fecha (solo día)
+    fechas = [val["timestamp"].split("T")[0] for val in posts.values()]
+    conteo_fechas = Counter(fechas)
+    chart_labels = list(conteo_fechas.keys())
+    chart_values = list(conteo_fechas.values())
 
     data = {
-        "title": "Landing Page' Dashboard",
-        "total_responses": total_responses,
-        "productos_unicos": productos_unicos,
-        "producto_mas_frecuente": producto_mas_frecuente,
-        "fecha_mas_reciente": fecha_mas_reciente,
-        "tabla": tabla,
-        "labels": fechas_ordenadas,     # eje x del gráfico
-        "values": cantidades            # eje y del gráfico
+        'title': "Landing Page' Dashboard",
+        'total_responses': total_responses,
+        'productos_unicos': productos_unicos,
+        'producto_mas_frecuente': producto_mas_frecuente,
+        'ultima_fecha': ultima_fecha,
+        'tabla_datos': tabla_datos,
     }
 
     return render(request, 'dashboard/index.html', data)
+
