@@ -4,10 +4,11 @@ from django.conf import settings
 import requests # type: ignore
 from collections import Counter
 from datetime import datetime
-from django.contrib.auth.decorators import login_required
 import json
+from django.contrib.auth.decorators import login_required, permission_required
 
 @login_required
+@permission_required('dashboard.index_viewer', raise_exception=True)
 # dashboard/views.py
 def index(request):
     response = requests.get(settings.API_URL)
